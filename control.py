@@ -1,10 +1,12 @@
 # Module for the controller class
 
 class Control():
+	"""Class to provide CLI for interaction with the system"""
 	def __init__(self, seller):
 		self.seller = seller
 
 	def control(self):
+		"""Method to provide control functionality"""
 		active = True
 		opts = {1: "Sell tickets",
 			    2: "Provide a refund",

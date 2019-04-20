@@ -4,6 +4,7 @@ from uuid import uuid4
 from datetime import datetime, timedelta
 
 class Route():
+    # Class representing bus routes
     def __init__(self, color, bnum):
         self.color = color
         self.bnum = bnum
@@ -20,31 +21,42 @@ class Route():
         del(self.tix[tid])
 
 class Seller():
+    """Class representing the ticket seller"""
     def __init__(self, rdict): 
         self.avail = rdict
         self.price = 2
 
     def sell(self):
+        """Sell tickets for a given date and route"""
+        # Get date input
         date = input("Enter the date for which you'd like to buy ticket(s) in the form Month/day/Year (e.g. April/23/2019): ")
+        # Check date validity
         if date in self.avail.keys():
+            # vary price based on weekday/weekend
             if datetime.strptime(date, "%B/%d/%Y").weekday() < 5:
                 p = self.price
             else:
                 p = self.price * 1.2
+
+            # choose route
             route = input("Enter the route (blue, green, or red): ")
             if route in self.avail[date].keys():
                 bus = self.avail[date][route]
-                if bus.tseats - len(bus.tix) > 0:
-                    n = input("How many tickets would you like to buy? ")
-                    n = int(n)
+                # Check for ticket availability
+                n = input("How many tickets would you like to buy? ")
+                n = int(n)
+                if bus.tseats - len(bus.tix) > n:
+                    # Check ticket num limit
                     if n > 4:
                         print("The maximum number of tickets you can purchase is 4.")
                         return
                     else:
                         p = p * n
+                        # 10% discount for purchasing 4
                         if n == 4:
                             p = p*0.9
                     x = input(f"Would you like to purchase {n} ticket(s) for route {route} on {date} for ${p:,.2f}? (y/n) ")
+                    # If confirmed, generate tickets
                     if x == "y":
                         for i in range(n):
                             t = (uuid4(), route, date, p/n)
@@ -54,7 +66,7 @@ class Seller():
                         print("Ok, NVM")
                         return
                 else:
-                    print(f"There are no tickets available for route {route} on {date}".format())
+                    print(f"There are fewer than {n} tickets available for route {route} on {date}".format())
                     return
             else:
                 print(f"{route} is not a valid route".format())
@@ -65,6 +77,7 @@ class Seller():
 
 
     def refund(self): 
+        """Refund a ticket"""
         date = input("Enter the date for which you'd like to be refunded in the form Month/day/Year (e.g. April/23/2019): ")
         if date == datetime.now().strftime("%B/%d/%Y"):
             print("No refunds for tickets for today.")
@@ -90,6 +103,7 @@ class Seller():
             print("Your ticket has been refunded")
 
     def report(self):
+        """Print a report for any valid date"""
         date = input("Enter the date for which you'd like a report in the form Month/day/Year (e.g. April/23/2019): ")
         if date == datetime.now().strftime("%B/%d/%Y"):
             print("You'd like a report for today. Route information is also required.")
