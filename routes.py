@@ -27,6 +27,10 @@ class Seller():
     def sell(self):
         date = input("Enter the date for which you'd like to buy ticket(s) in the form Month/day/Year (e.g. April/23/2019): ")
         if date in self.avail.keys():
+            if datetime.strptime(date, "%B/%d/%Y").weekday() < 5:
+                p = self.price
+            else:
+                p = self.price * 1.2
             route = input("Enter the route (blue, green, or red): ")
             if route in self.avail[date].keys():
                 bus = self.avail[date][route]
@@ -37,13 +41,9 @@ class Seller():
                         print("The maximum number of tickets you can purchase is 4.")
                         return
                     else:
-                        p = self.price * n
+                        p = p * n
                         if n == 4:
                             p = p*0.9
-                    #if date.weekday() < 5:
-                    #    p = self.price
-                    #else:
-                    #    p = self.price * 0.2
                     x = input(f"Would you like to purchase {n} ticket(s) for route {route} on {date} for ${p:,.2f}? (y/n) ")
                     if x == "y":
                         for i in range(n):
@@ -108,7 +108,7 @@ class Seller():
         print(f"Report for date {date}".format())
         for route, obj in self.avail[date].items():
             n = len(self.avail[date][route].tix)
-            print(f"{n} tickets have been sold on the {route} route".format())
+            print(f"{n} tickets of {self.avail[date][route].tseats} have been sold on the {route} route".format())
 
 
 
