@@ -4,7 +4,7 @@ from uuid import uuid4
 from datetime import datetime, timedelta
 
 class Route():
-    # Class representing bus routes
+    # Class representing a bus route on a single day
     def __init__(self, route_color, number_of_busses):
         self.color = route_color
         self.number_of_busses = number_of_busses
@@ -15,9 +15,10 @@ class Route():
     def get_total_route_seats(self):
         return self.seats_per_bus * self.number_of_busses
 
-    def sell(self, ticket):
+    def sell_ticket(self, ticket):
         # add ticket to ticket list
-        self.tix[str(ticket[0])] = ticket
+        ticket_id = str(ticket[0])
+        self.tickets_sold[ticket_id] = ticket
 
     def refund(self, tid):
         # remove ticket from ticket list
