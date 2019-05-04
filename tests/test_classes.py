@@ -29,3 +29,6 @@ def test_refund_ticket():
     ticket_id = '12345'
     tr.refund_ticket('12345')
     tr.tickets_sold == {}
+
+def test_get_total_route_seats():
+    tr.get_total_route_seats() == 5*89
