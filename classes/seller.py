@@ -20,51 +20,52 @@ class Seller():
     def sell(self):
         """Sell tickets for a given date and route"""
         # Get date input
-        date = input("Enter the date for which you'd like to buy ticket(s) in the form Month/day/Year (e.g. April/23/2019): ")
+        date = input("Enter the date for which you'd like to buy ticket(s) in the form mm/dd/yyyy (e.g. 05/10/2019): ")
         # Check date validity
-        if date in self.avail.keys():
-            # vary price based on weekday/weekend
-            if datetime.strptime(date, "%B/%d/%Y").weekday() < 5:
-                p = self.price
-            else:
-                p = self.price * 1.2
-
-            # choose route
-            route = input("Enter the route (blue, green, or red): ")
-            if route in self.avail[date].keys():
-                bus = self.avail[date][route]
-                # Check for ticket availability
-                n = input("How many tickets would you like to buy? ")
-                n = int(n)
-                if bus.tseats - len(bus.tix) > n:
-                    # Check ticket num limit
-                    if n > 4:
-                        print("The maximum number of tickets you can purchase is 4.")
-                        return
-                    else:
-                        p = p * n
-                        # 10% discount for purchasing 4
-                        if n == 4:
-                            p = p*0.9
-                    x = input(f"Would you like to purchase {n} ticket(s) for route {route} on {date} for ${p:,.2f}? (y/n) ")
-                    # If confirmed, generate tickets
-                    if x == "y":
-                        for i in range(n):
-                            t = (uuid4(), route, date, p/n)
-                            bus.sell(t)
-                            print(f"You purchased ticket {t[0]} for route {t[1]} on {t[2]} for ${t[3]:,.2f}".format())
-                    else:
-                        print("Ok, NVM")
-                        return
-                else:
-                    print(f"There are fewer than {n} tickets available for route {route} on {date}".format())
-                    return
-            else:
-                print(f"{route} is not a valid route".format())
-                return
-        else:
+        if not check_input_date(date):
             print(f"{date} is not an available date".format())
             return
+
+        # vary price based on weekday/weekend
+        if datetime.strptime(date, "%B/%d/%Y").weekday() < 5:
+            p = self.price
+        else:
+            p = self.price * 1.2
+
+        # choose route
+        route = input("Enter the route (blue, green, or red): ")
+        if route in self.avail[date].keys():
+            bus = self.avail[date][route]
+            # Check for ticket availability
+            n = input("How many tickets would you like to buy? ")
+            n = int(n)
+            if bus.tseats - len(bus.tix) > n:
+                # Check ticket num limit
+                if n > 4:
+                    print("The maximum number of tickets you can purchase is 4.")
+                    return
+                else:
+                    p = p * n
+                    # 10% discount for purchasing 4
+                    if n == 4:
+                        p = p*0.9
+                x = input(f"Would you like to purchase {n} ticket(s) for route {route} on {date} for ${p:,.2f}? (y/n) ")
+                # If confirmed, generate tickets
+                if x == "y":
+                    for i in range(n):
+                        t = (uuid4(), route, date, p/n)
+                        bus.sell(t)
+                        print(f"You purchased ticket {t[0]} for route {t[1]} on {t[2]} for ${t[3]:,.2f}".format())
+                else:
+                    print("Ok, NVM")
+                    return
+            else:
+                print(f"There are fewer than {n} tickets available for route {route} on {date}".format())
+                return
+        else:
+            print(f"{route} is not a valid route".format())
+            return
+            
 
 
     def refund(self): 
