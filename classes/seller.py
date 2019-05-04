@@ -8,7 +8,6 @@ class Seller():
     """Class representing the ticket seller"""
     def __init__(self, rdict): 
         self.avail = rdict
-        self.price = 2
 
     def sell(self):
         """Sell tickets for a given date and route"""
