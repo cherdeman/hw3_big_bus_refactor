@@ -9,7 +9,7 @@ class Route():
         self.color = route_color
         self.number_of_busses = number_of_busses
         self.seats_per_bus = 89
-        self.tseats = self.seats_per_bus * self.number_of_busses
+        self.total_seats = self.seats_per_bus * self.number_of_busses
         self.tix = {}
 
     def sell(self, ticket):
