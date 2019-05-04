@@ -8,8 +8,8 @@ class Route():
     def __init__(self, route_color, number_of_busses):
         self.color = route_color
         self.number_of_busses = number_of_busses
-        self.seats = 89
-        self.tseats = self.seats * self.number_of_busses
+        self.seats_per_bus = 89
+        self.tseats = self.seats_per_bus * self.number_of_busses
         self.tix = {}
 
     def sell(self, ticket):
