@@ -4,6 +4,7 @@ class Route():
     # Class representing a bus route on a single day
     def __init__(self, route_color, number_of_busses):
         self.color = route_color
+        self.base_ticket_price = 10
         self.number_of_busses = number_of_busses
         self.seats_per_bus = 89
         self.total_seats = self.get_total_route_seats()
