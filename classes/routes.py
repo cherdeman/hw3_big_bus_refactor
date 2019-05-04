@@ -10,7 +10,7 @@ class Route():
         self.number_of_busses = number_of_busses
         self.seats_per_bus = 89
         self.total_seats = self.get_total_route_seats()
-        self.tix = {}
+        self.tickets_sold = {}
 
     def get_total_route_seats(self):
         return self.seats_per_bus * self.number_of_busses
