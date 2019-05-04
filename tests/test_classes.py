@@ -5,4 +5,7 @@ test_route = Route('blue', 5)
 
 # Test route attributes
 def test_route_color():
-	test_route.route_color == 'blue' 
+	test_route.color == 'blue' 
+
+def test_number_busses():
+	test_route.number_busses == 5
