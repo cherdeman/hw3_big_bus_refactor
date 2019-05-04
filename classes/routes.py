@@ -5,11 +5,11 @@ from datetime import datetime, timedelta
 
 class Route():
     # Class representing bus routes
-    def __init__(self, color, bnum):
-        self.color = color
-        self.bnum = bnum
+    def __init__(self, route_color, number_of_busses):
+        self.color = route_color
+        self.number_of_busses = number_of_busses
         self.seats = 89
-        self.tseats = self.seats * self.bnum
+        self.tseats = self.seats * self.number_of_busses
         self.tix = {}
 
     def sell(self, ticket):

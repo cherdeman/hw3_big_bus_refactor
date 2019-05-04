@@ -8,4 +8,4 @@ def test_route_color():
 	test_route.color == 'blue' 
 
 def test_number_busses():
-	test_route.number_busses == 5
+	test_route.number_of_busses == 5
