@@ -15,3 +15,6 @@ def test_seats_per_bus():
 
 def test_total_seats():
     tr.total_seats == 5*89
+
+def test_tickets_sold():
+    tr.tickets_sold == {}
