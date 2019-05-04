@@ -2,6 +2,7 @@
 
 from uuid import uuid4
 from datetime import datetime, timedelta
+from classes.routes import Route
 
 class Seller():
     """Class representing the ticket seller"""

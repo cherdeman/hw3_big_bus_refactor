@@ -19,6 +19,9 @@ def test_total_seats():
 def test_tickets_sold():
     tr.tickets_sold == {}
 
+def test_base_ticket_price():
+    tr.base_ticket_price == 10
+
 # test route methods 
 def test_sell_ticket():
     ticket = ('12345', 'blue', 'May 5, 2018', 2)
