@@ -28,4 +28,4 @@ def test_sell_ticket():
 def test_refund_ticket():
     ticket_id = '12345'
     tr.refund_ticket('12345')
-    tr.tickets_solid == {}
+    tr.tickets_sold == {}

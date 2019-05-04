@@ -20,9 +20,9 @@ class Route():
         ticket_id = str(ticket[0])
         self.tickets_sold[ticket_id] = ticket
 
-    def refund(self, tid):
+    def refund_ticket(self, ticket_id):
         # remove ticket from ticket list
-        del(self.tix[tid])
+        del(self.tickets_sold[ticket_id])
 
 class Seller():
     """Class representing the ticket seller"""
