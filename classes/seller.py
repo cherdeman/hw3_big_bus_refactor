@@ -9,6 +9,14 @@ class Seller():
     def __init__(self, rdict): 
         self.avail = rdict
 
+    def check_input_date(self, input_date):
+        valid_date = False
+        if input_date in self.avail.keys():
+            valid_date = True
+        return valid_date
+
+
+
     def sell(self):
         """Sell tickets for a given date and route"""
         # Get date input

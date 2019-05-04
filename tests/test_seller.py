@@ -7,6 +7,7 @@ from classes.seller import Seller
 #initialize test seller
 now = datetime(2019, 5, 4, 18, 39, 53, 898306)
 date_dict = {}
+
 for i in range(10):
     date = now + timedelta(days = i)
     date = date.strftime("%m/%d/%Y")
