@@ -62,16 +62,18 @@ def test_ticket_request():
     ts.tickets_requested == 4
 
 def test_check_ticket_limit_4():
-    ts.check_ticket_limit(4) == True
+    ts.tickets_requested = 4
+    ts.check_ticket_limit() == True
 
 def test_check_ticket_limit_5():
-    ts.check_ticket_limit(5) == False
+    ts.tickets_requested = 5
+    ts.check_ticket_limit() == False
 
 def test_check_seat_availability():
     ts.date = '05/04/2019'
     ts.route = 'blue'
-    bus = ts.routes_by_date[ts.date][ts.route]
-    ts.check_seat_availability(bus) == False
+    ts.bus = ts.routes_by_date[ts.date][ts.route]
+    ts.check_seat_availability() == False
 
 def test_check_group_discount():
     ts.tickets_requested = 4
