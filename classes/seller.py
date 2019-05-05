@@ -33,6 +33,13 @@ class Seller():
 
         return bus
 
+    def check_seat_availability(self, bus, tickets_requested):
+        available_tickets = False
+        if tickets_requested <= bus.get_number_of_available_tickets():
+            available_tickets = True
+
+        return available_tickets
+
     def check_ticket_limit(self, tickets_requested):
         under_ticket_limit = False
         if tickets_requested < 5:
@@ -40,12 +47,10 @@ class Seller():
 
         return under_ticket_limit
 
-    def check_seat_availability(self, bus, tickets_requested):
-        available_tickets = False
-        if tickets_requested <= bus.get_number_of_available_tickets():
-            available_tickets = True
+    # def check_group_discount(self, tickets_requested):
+    #     pass
 
-        return available_tickets
+    
 
     def sell(self):
         """Sell tickets for a given date and route"""
