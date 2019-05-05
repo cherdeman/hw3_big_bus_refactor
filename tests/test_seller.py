@@ -71,7 +71,7 @@ def test_check_seat_availability():
     ts.date = '05/04/2019'
     ts.route = 'blue'
     bus = ts.routes_by_date[ts.date][ts.route]
-    ts.check_seat_availability(bus, 500) == False
+    ts.check_seat_availability(bus) == False
 
 def test_check_group_discount():
     ts.check_group_discount(10, 4) == 9

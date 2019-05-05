@@ -33,8 +33,6 @@ class Seller():
         if bus is None:
             return
 
-        #tickets_requested = input("How many tickets would you like to buy? ")
-        #tickets_requested = int(tickets_requested)
         self.ticket_request()
         if not self.check_seat_availability(bus, tickets_requested):
             return
@@ -81,9 +79,9 @@ class Seller():
         num_tickets = input("How many tickets would you like to buy? ")
         self.tickets_requested = int(num_tickets)
 
-    def check_seat_availability(self, bus, tickets_requested):
+    def check_seat_availability(self, bus):
         available_tickets = False
-        if tickets_requested <= bus.get_number_of_available_tickets():
+        if self.tickets_requested <= bus.get_number_of_available_tickets():
             available_tickets = True
         else:
             print(f"There are fewer than {tickets_requested} tickets available for route {bus.color}")
