@@ -18,7 +18,7 @@ ts = Seller(date_dict)
 
 # test attributes
 def test_available_dates():
-	ts.available_dates == date_dict
+	ts.routes_by_date == date_dict
 
 # test methods
 def test_check_input_date():

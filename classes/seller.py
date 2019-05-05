@@ -6,16 +6,17 @@ from classes.routes import Route
 
 class Seller():
     """Class representing the ticket seller"""
-    def __init__(self, rdict): 
-        self.avail = rdict
+    def __init__(self, date_route_dict): 
+        self.routes_by_date = date_route_dict
 
     def check_input_date(self, input_date):
         valid_date = False
-        if input_date in self.avail.keys():
+        if input_date in self.routes_by_date.keys():
             valid_date = True
         return valid_date
 
-
+    def vary_price_on_weekend(self):
+        pass
 
     def sell(self):
         """Sell tickets for a given date and route"""
