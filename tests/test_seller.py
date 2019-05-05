@@ -91,6 +91,7 @@ def test_confirm_ticket_sale():
     ts.get_route()
     ts.confirm_order() == True
 
+@patch('builtins.input', lambda _ : 'blue')
 def test_report_today_correct():
     ts.date == '05/04/2019'
     ts.print_report_today() == True
