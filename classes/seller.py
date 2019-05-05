@@ -50,7 +50,13 @@ class Seller():
         self.reset()
 
     def get_date(self):
-        self.date = input("Enter the date in the form mm/dd/yyyy (e.g. 05/10/2019): ")
+        date = input("Enter the date in the form mm/dd/yyyy (e.g. 05/10/2019): ")
+        try:
+            datetime.strptime(date, "%m/%d/%Y")
+            self.date = date
+        except ValueError:
+            print("Incorrect data format, should be mm/dd/yyyy")
+            return
 
     def check_input_date(self):
         valid_date = False
@@ -148,7 +154,7 @@ class Seller():
             print(f"There is no ticket sold with id {_id} on route {route} and {date}".format())
             return
 
-        x = input(f"Are you sure you want a refund for ticket {_id} on route {route} on date {date}? (y/n) ".format())
+        x = input(f"Are you sure you want a refund for ticket {_id} on route {route} on date {date}? (y/n) ")
         if x == "y":
             bus = self.avail[date][route]
             bus.refund(_id)
@@ -157,21 +163,23 @@ class Seller():
     def report(self):
         """Print a report for any valid date"""
         self.get_date()
-        if date == datetime.now().strftime("%B/%d/%Y"):
-            print("You'd like a report for today. Route information is also required.")
-            route = input("Enter the route you want a report on (blue, green, or red): ")
-            if route not in ["blue", "red", "green"]:
-                print("Not a valid route")
-                return
-            else:
-                print(f"{len(self.avail[date][route].tix)} tickets have been sold on route {route} for today.".format())
-                return
+        if self.date is None:
+            print("Cannot generate report.")
+        elif self.date == datetime.now().strftime("%m/%d/%Y"):
+            self.print_report_today()
+        else:
+            self.print_report_other_day()
+        
 
-        if date not in self.avail.keys():
-            print("A report cannot be generated for {}".format(date))
-            return
+    def print_report_today(self):
+        self.get_route()
+        if self.bus is not None:
+            print(f"{len(self.bus.tickets_sold)} tickets have been sold on route {self.route} for today.")
+        pass
 
-        print(f"Report for date {date}".format())
-        for route, obj in self.avail[date].items():
-            n = len(self.avail[date][route].tix)
-            print(f"{n} tickets of {self.avail[date][route].tseats} have been sold on the {route} route".format())
+    def print_report_other_day(self):
+        print(f"Report for date {self.date}".format())
+        for route, obj in self.routes_by_date[self.date].items():
+            num_tickets_sold = len(self.routes_by_date[self.date][route].tickets_sold)
+            print(f"{num_tickets_sold} tickets of {self.routes_by_date[self.date][route].total_seats} have been sold on the {route} route")
+
