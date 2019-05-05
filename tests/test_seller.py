@@ -33,7 +33,10 @@ def test_base_ticket_price():
 def test_check_input_date():
 	ts.check_input_date('05/04/2019') == True
 
-def test_get_price():
+def test_get_price_weekend():
 	ts.get_price('05/04/2019') == 12
+
+def test_get_price_weekday():
+	ts.get_price('05/09/2019') == 10
 	#route = ts.routes_by_date['05/04/2019'][blue]
 	#route.base_ticket_price
