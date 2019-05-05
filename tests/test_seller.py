@@ -14,7 +14,7 @@ for i in range(10):
     date_dict[date] = {}
     date_dict[date]['blue'] = Route('blue', 5)
 
-ts = Seller(date_dict, 1.2, 0.9)
+ts = Seller(date_dict, 1.2, 0.9, 10)
 
 # test attributes
 def test_available_dates():
@@ -25,6 +25,9 @@ def test_weekend_multiplier():
 
 def test_group_discount_rate():
 	ts.group_discount_rate == 0.9
+
+def test_base_ticket_price():
+	ts.base_ticket_price == 10
 
 # test methods
 def test_check_input_date():

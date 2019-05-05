@@ -6,19 +6,26 @@ from classes.routes import Route
 
 class Seller():
     """Class representing the ticket seller"""
-    def __init__(self, date_route_dict, weekend_multiplier, group_discount_rate): 
+    def __init__(self, date_route_dict, weekend_multiplier, group_discount_rate, base_price): 
         self.routes_by_date = date_route_dict
         self.weekend_multiplier = weekend_multiplier
         self.group_discount_rate = group_discount_rate
+        self.base_ticket_price = base_price
 
     def check_input_date(self, input_date):
         valid_date = False
         if input_date in self.routes_by_date.keys():
             valid_date = True
+        
         return valid_date
 
-    def vary_price_on_weekend(self):
-        pass
+    def get_price(self, date):
+        if datetime.strptime(date, "%m/%d/%Y").weekday() < 5:
+            price = self.base_ticket_price
+        else: 
+            price = self.base_ticket_price * self.weekend_multiplier        
+        
+        return price
 
     def sell(self):
         """Sell tickets for a given date and route"""
