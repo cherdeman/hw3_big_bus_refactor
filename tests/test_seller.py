@@ -48,5 +48,5 @@ def test_check_ticket_limit_4():
 def test_check_ticket_limit_5():
     ts.check_ticket_limit(5) == False
 
-# def test_check_seat_availability():
-#     ts.check_seat_availability(5) == True
+def test_check_seat_availability():
+    ts.check_seat_availability(500) == False
