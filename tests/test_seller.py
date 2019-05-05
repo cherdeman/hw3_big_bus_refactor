@@ -20,6 +20,10 @@ ts = Seller(date_dict)
 def test_available_dates():
 	ts.routes_by_date == date_dict
 
+def test_weekend_multiplier():
+	ts.test_weekend_multiplier == 1.2
+
+
 # test methods
 def test_check_input_date():
 	ts.check_input_date('05/04/2019') == True
