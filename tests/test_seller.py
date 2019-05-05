@@ -90,3 +90,21 @@ def test_confirm_ticket_sale():
     ts.date = '05/10/2019'
     ts.get_route()
     ts.confirm_order() == True
+
+def test_report_future_date_none():
+    ts.date == None
+    ts.print_report_other_day() == False
+
+def test_report_future_date_correct():
+    ts.date == '05/06/2019'
+    ts.print_report_other_day() == True
+
+@patch('builtins.input', lambda _ : '05/05/2019')
+def test_report_future_date():
+    ts.report() == True
+
+@patch('builtins.input', lambda _ : '05/05/2019')
+def test_report_future_date():
+    ts.report() == True
+
+

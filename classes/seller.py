@@ -162,25 +162,37 @@ class Seller():
 
     def report(self):
         """Print a report for any valid date"""
+        reported = False
         self.get_date()
         if not self.check_input_date():
             print("Cannot generate report.")
-            return
+            return reported
+
         if self.date == datetime.now().strftime("%m/%d/%Y"):
             self.print_report_today()
+            reported = True
         else:
-            self.print_report_other_day()
+            reported = self.print_report_other_day()
+
+        return reported
         
 
     def print_report_today(self):
         self.get_route()
         if self.bus is not None:
             print(f"{len(self.bus.tickets_sold)} tickets have been sold on route {self.route} for today.")
-        pass
 
     def print_report_other_day(self):
-        print(f"Report for date {self.date}".format())
-        for route, obj in self.routes_by_date[self.date].items():
-            num_tickets_sold = len(self.routes_by_date[self.date][route].tickets_sold)
-            print(f"{num_tickets_sold} tickets of {self.routes_by_date[self.date][route].total_seats} have been sold on the {route} route")
+        reported = False
+        print(f"Report for date {self.date}")
+        for route in self.routes_by_date[self.date].keys():
+            try:
+                num_tickets_sold = len(self.routes_by_date[self.date][route].tickets_sold)
+                print(f"{num_tickets_sold} tickets of {self.routes_by_date[self.date][route].total_seats} have been sold on the {route} route")
+                reported = True
+            except KeyError:
+                print("Invalid request.")
+                reported = False
+
+        return reported
 
