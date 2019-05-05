@@ -49,4 +49,5 @@ def test_check_ticket_limit_5():
     ts.check_ticket_limit(5) == False
 
 def test_check_seat_availability():
-    ts.check_seat_availability(500) == False
+    bus = ts.get_route('05/04/2019', 'blue')
+    ts.check_seat_availability(bus, 500) == False
