@@ -163,9 +163,10 @@ class Seller():
     def report(self):
         """Print a report for any valid date"""
         self.get_date()
-        if self.date is None:
+        if not self.check_input_date():
             print("Cannot generate report.")
-        elif self.date == datetime.now().strftime("%m/%d/%Y"):
+            return
+        if self.date == datetime.now().strftime("%m/%d/%Y"):
             self.print_report_today()
         else:
             self.print_report_other_day()
