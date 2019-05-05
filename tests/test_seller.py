@@ -2,6 +2,8 @@ import pytest
 from datetime import datetime, timedelta
 from classes.routes import Route 
 from classes.seller import Seller
+import unittest
+from unittest.mock import patch
 
 
 #initialize test seller
@@ -30,8 +32,9 @@ def test_base_ticket_price():
     ts.base_ticket_price == 10
 
 # test methods
+@patch('builtins.input', lambda _ : '05/10/2019')
 def test_get_date():
-    ts.input = lambda: '05/10/2019'
+    ts.get_date()
     ts.date == '05/10/2019'
 
 def test_check_input_date():
@@ -46,8 +49,12 @@ def test_get_price_weekday():
     ts.date = '05/09/2019'
     ts.get_price() == 10
 
+@patch('builtins.input', lambda _ : 'blue')
 def test_get_route():
-    ts.get_route('05/04/2019', 'blue').color == 'blue'
+    ts.date = '05/10/2019'
+#     ts.input = lambda: ""
+    bus = ts.get_route()
+    bus.color == 'blue'
 
 def test_check_ticket_limit_4():
     ts.check_ticket_limit(4) == True
@@ -56,7 +63,9 @@ def test_check_ticket_limit_5():
     ts.check_ticket_limit(5) == False
 
 def test_check_seat_availability():
-    bus = ts.get_route('05/04/2019', 'blue')
+    ts.date = '05/04/2019'
+    ts.route = 'blue'
+    bus = ts.routes_by_date[ts.date][ts.route]
     ts.check_seat_availability(bus, 500) == False
 
 def test_check_group_discount():

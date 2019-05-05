@@ -20,7 +20,7 @@ class Seller():
     def sell_ticket(self):
         """Sell tickets for a given date and route"""
         # Get date input
-        #self.date = input("Enter the date for which you'd like to buy ticket(s) in the form mm/dd/yyyy (e.g. 05/10/2019): ")
+        self.get_date()
         # Check date validity
         if not self.check_input_date():
             return
@@ -29,8 +29,7 @@ class Seller():
         self.price = self.get_price()
 
         # choose route
-        route = input("Enter the route (blue, green, or red): ")
-        bus = self.get_route(date, route)
+        bus = self.get_route()
         if bus is None:
             return
 
@@ -68,10 +67,12 @@ class Seller():
         
         return price
 
-    def get_route(self, date, route):
+    def get_route(self):
         bus = None
-        if route in self.routes_by_date[date].keys():
-            bus = self.routes_by_date[date][route]
+        color = input("Enter the route (blue, green, or red): ")
+        self.route = color
+        if self.route in self.routes_by_date[self.date].keys():
+            bus = self.routes_by_date[self.date][self.route]
         else:
             print(f"{route} is not a valid route".format())
 
