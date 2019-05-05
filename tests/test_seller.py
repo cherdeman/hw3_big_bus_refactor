@@ -16,5 +16,10 @@ for i in range(10):
 
 ts = Seller(date_dict)
 
+# test attributes
+def test_available_dates():
+	ts.available_dates == date_dict
+
+# test methods
 def test_check_input_date():
 	ts.check_input_date('05/04/2019') == True
