@@ -178,6 +178,7 @@ class Seller():
         
 
     def print_report_today(self):
+        
         self.get_route()
         if self.bus is not None:
             print(f"{len(self.bus.tickets_sold)} tickets have been sold on route {self.route} for today.")
