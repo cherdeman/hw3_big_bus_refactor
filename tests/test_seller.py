@@ -1,9 +1,10 @@
 import pytest
-from datetime import datetime, timedelta
-from classes.routes import Route 
-from classes.seller import Seller
 import unittest
 from unittest.mock import patch
+from datetime import datetime, timedelta
+
+from classes.routes import Route 
+from classes.seller import Seller
 
 
 #initialize test seller
@@ -56,8 +57,8 @@ def test_get_route():
     bus.color == 'blue'
 
 @patch('builtins.input', lambda _ : '4')
-def test_tickets_requested():
-    ts.tickets_requested()
+def test_ticket_request():
+    ts.ticket_request()
     ts.tickets_requested == 4
 
 def test_check_ticket_limit_4():

@@ -26,15 +26,16 @@ class Seller():
             return
 
         # vary price based on weekday/weekend
-        self.price = self.get_price()
+        self.get_price()
 
         # choose route
         bus = self.get_route()
         if bus is None:
             return
 
-        tickets_requested = input("How many tickets would you like to buy? ")
-        tickets_requested = int(tickets_requested)
+        #tickets_requested = input("How many tickets would you like to buy? ")
+        #tickets_requested = int(tickets_requested)
+        self.ticket_request()
         if not self.check_seat_availability(bus, tickets_requested):
             return
 
@@ -61,11 +62,9 @@ class Seller():
 
     def get_price(self):
         if datetime.strptime(self.date, "%m/%d/%Y").weekday() < 5:
-            price = self.base_ticket_price
+            self.price = self.base_ticket_price
         else: 
-            price = self.base_ticket_price * self.weekend_multiplier        
-        
-        return price
+            self.price = self.base_ticket_price * self.weekend_multiplier        
 
     def get_route(self):
         bus = None
@@ -74,16 +73,20 @@ class Seller():
         if self.route in self.routes_by_date[self.date].keys():
             bus = self.routes_by_date[self.date][self.route]
         else:
-            print(f"{route} is not a valid route".format())
+            print(f"{route} is not a valid route")
 
         return bus
+
+    def ticket_request(self):
+        num_tickets = input("How many tickets would you like to buy? ")
+        self.tickets_requested = int(num_tickets)
 
     def check_seat_availability(self, bus, tickets_requested):
         available_tickets = False
         if tickets_requested <= bus.get_number_of_available_tickets():
             available_tickets = True
         else:
-            print(f"There are fewer than {tickets_requested} tickets available for route {bus.color}".format())
+            print(f"There are fewer than {tickets_requested} tickets available for route {bus.color}")
 
         return available_tickets
 
