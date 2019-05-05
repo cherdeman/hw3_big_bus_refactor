@@ -38,6 +38,11 @@ def test_get_date():
     ts.get_date()
     ts.date == '05/10/2019'
 
+@patch('builtins.input', lambda _ : 'asdgfhas')
+def test_get_date_bad_formation():
+    ts.get_date()
+    ts.date is None
+
 def test_check_input_date():
     ts.date = '05/04/2019'
     ts.check_input_date() == True
