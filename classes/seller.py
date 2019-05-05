@@ -33,6 +33,17 @@ class Seller():
 
         return bus
 
+    def check_ticket_limit(self, tickets_requested):
+        under_ticket_limit = False
+        if tickets_requested < 5:
+            under_ticket_limit = True
+
+        return under_ticket_limit
+
+
+    def check_seat_availability():
+        pass
+
     def sell(self):
         """Sell tickets for a given date and route"""
         # Get date input
