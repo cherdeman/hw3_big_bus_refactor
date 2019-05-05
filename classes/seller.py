@@ -136,29 +136,30 @@ class Seller():
     def refund(self): 
         """Refund a ticket"""
         self.get_date()
-
-        if date == datetime.now().strftime("%m/%d/%Y"):
+        if self.check_today():
             print("No refunds for tickets for today.")
+            self.reset()
             return
-        if date not in self.avail.keys():
+
+        if not self.check_input_date():
             print("Not a valid date for a refund.")
+            self.reset()
             return
         
-        route = input("Enter the route (blue, green, or red): ")
-        if route not in ["blue", "red", "green"]:
-            print("Not a valid route")
-            return
+        self.get_route()
         
         _id = input("Enter the ticket id: ")
-        if _id not in self.avail[date][route].tix:
-            print(f"There is no ticket sold with id {_id} on route {route} and {date}".format())
+        if _id not in self.bus:
+            print(f"There is no ticket sold with id {_id} on route {self.route} and {self.date}")
             return
 
-        x = input(f"Are you sure you want a refund for ticket {_id} on route {route} on date {date}? (y/n) ")
+        x = input(f"Are you sure you want a refund for ticket {_id} on route {self.route} on date {self.date}? (y/n) ")
         if x == "y":
-            bus = self.avail[date][route]
-            bus.refund(_id)
+            self.bus.refund(_id)
             print("Your ticket has been refunded")
+
+    def check_today(self):
+        return self.date == datetime.now().strftime("%m/%d/%Y")
 
     def report(self):
         """Print a report for any valid date"""
@@ -178,7 +179,7 @@ class Seller():
 
     def print_report_today(self):
         reported = False
-        if self.date == datetime.now().strftime("%m/%d/%Y"):
+        if self.check_today():
             self.get_route()
             if self.bus is not None:
                 print(f"{len(self.bus.tickets_sold)} tickets have been sold on route {self.route} for today.")
