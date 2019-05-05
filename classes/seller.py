@@ -46,12 +46,11 @@ class Seller():
             return
 
         self.check_group_discount()
-        
-        self.confirm_order(confirmation, route, price, tickets_requested)
+        self.confirm_order()
         self.reset()
 
     def get_date(self):
-        self.date = input("Enter the date for which you'd like to buy ticket(s) in the form mm/dd/yyyy (e.g. 05/10/2019): ")
+        self.date = input("Enter the date in the form mm/dd/yyyy (e.g. 05/10/2019): ")
 
     def check_input_date(self):
         valid_date = False
@@ -107,7 +106,7 @@ class Seller():
 
     def confirm_order(self):
         confirmed = True
-        confirmation = input(f"Would you like to purchase {self.tickets_requested} ticket(s) for route {self.route} on {self.date} for ${self.price:,.2f}? (y/n) ")
+        confirmation = input(f"Would you like to purchase {self.tickets_requested} ticket(s) for route {self.route} on {self.date} for ${self.price*self.tickets_requested:,.2f} total? (y/n) ")
         if confirmation == "y":
             for ticket_number in range(self.tickets_requested):
                 ticket_id = str(uuid4())
@@ -120,7 +119,7 @@ class Seller():
 
         return confirmed 
 
-    def reset():
+    def reset(self):
         self.price = None
         self.route = None
         self.tickets_requested = None
@@ -130,8 +129,9 @@ class Seller():
     # Refund method and helpers
     def refund(self): 
         """Refund a ticket"""
-        date = input("Enter the date for which you'd like to be refunded in the form Month/day/Year (e.g. April/23/2019): ")
-        if date == datetime.now().strftime("%B/%d/%Y"):
+        self.get_date()
+
+        if date == datetime.now().strftime("%m/%d/%Y"):
             print("No refunds for tickets for today.")
             return
         if date not in self.avail.keys():
@@ -156,7 +156,7 @@ class Seller():
 
     def report(self):
         """Print a report for any valid date"""
-        date = input("Enter the date for which you'd like a report in the form Month/day/Year (e.g. April/23/2019): ")
+        self.get_date()
         if date == datetime.now().strftime("%B/%d/%Y"):
             print("You'd like a report for today. Route information is also required.")
             route = input("Enter the route you want a report on (blue, green, or red): ")
