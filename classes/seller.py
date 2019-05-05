@@ -15,6 +15,7 @@ class Seller():
         self.route = None
         self.tickets_requested = None
         self.date = None
+        self.bus = None
 
     # Ticket selling method and helpers
     def sell_ticket(self):
@@ -29,20 +30,18 @@ class Seller():
         self.get_price()
 
         # choose route
-        bus = self.get_route()
-        if bus is None:
+        self.get_route()
+        if self.bus is None:
             return
 
         self.ticket_request()
-        if not self.check_seat_availability(bus, tickets_requested):
+        if not self.check_seat_availability(bus):
             return
 
-        if not self.check_ticket_limit(tickets_requested):
+        if not self.check_ticket_limit():
             return
 
-        price = self.check_group_discount(price, tickets_requested)
-
-        confirmation = input(f"Would you like to purchase {tickets_requested} ticket(s) for route {route} on {date} for ${price:,.2f}? (y/n) ")
+        self.check_group_discount(price)
         
         self.confirm_order(confirmation, route, price, tickets_requested)
 
@@ -65,15 +64,14 @@ class Seller():
             self.price = self.base_ticket_price * self.weekend_multiplier        
 
     def get_route(self):
-        bus = None
         color = input("Enter the route (blue, green, or red): ")
         self.route = color
         if self.route in self.routes_by_date[self.date].keys():
-            bus = self.routes_by_date[self.date][self.route]
+            self.bus = self.routes_by_date[self.date][self.route]
         else:
-            print(f"{route} is not a valid route")
+            print(f"{self.route} is not a valid route")
 
-        return bus
+        #return bus
 
     def ticket_request(self):
         num_tickets = input("How many tickets would you like to buy? ")
@@ -102,12 +100,13 @@ class Seller():
             self.price *= self.group_discount_rate
             print(f"You qualify for a group discount rate, your price per ticket is ${self.price}")
 
-    def confirm_order(self, confirmation, route, price, tickets_requested):
+    def confirm_order(self, bus):
         confirmed = True
+        confirmation = input(f"Would you like to purchase {self.tickets_requested} ticket(s) for route {self.route} on {self.date} for ${self.price:,.2f}? (y/n) ")
         if confirmation == "y":
-            for ticket_number in range(tickets_requested):
+            for ticket_number in range(self.tickets_requested):
                 ticket_id = str(uuid4())
-                ticket = (ticket_id, route, date, price)
+                ticket = (ticket_id, self.route, self.date, self.price)
                 bus.sell_ticket(ticket)
                 print(f"You purchased ticket {ticket[0]} for route {ticket[1]} on {ticket[2]} for ${ticket[3]:,.2f}".format())
         else:

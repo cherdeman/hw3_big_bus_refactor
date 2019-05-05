@@ -53,8 +53,8 @@ def test_get_price_weekday():
 @patch('builtins.input', lambda _ : 'blue')
 def test_get_route():
     ts.date = '05/10/2019'
-    bus = ts.get_route()
-    bus.color == 'blue'
+    ts.get_route()
+    ts.bus.color == 'blue'
 
 @patch('builtins.input', lambda _ : '4')
 def test_ticket_request():
@@ -78,5 +78,8 @@ def test_check_group_discount():
     ts.price = 10
     ts.check_group_discount() == 9
 
+@patch('builtins.input', lambda _ : 'y')
 def test_confirm_ticket_sale():
-    pass
+    ts.date = '05/10/2019'
+    bus = ts.get_route()
+    ts.confirm_order() == True
