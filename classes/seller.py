@@ -24,6 +24,7 @@ class Seller():
         self.get_date()
         # Check date validity
         if not self.check_input_date():
+            self.reset()
             return
 
         # vary price based on weekday/weekend
@@ -32,18 +33,22 @@ class Seller():
         # choose route
         self.get_route()
         if self.bus is None:
+            self.reset()
             return
 
         self.ticket_request()
-        if not self.check_seat_availability(bus):
+        if not self.check_seat_availability():
+            self.reset()
             return
 
         if not self.check_ticket_limit():
+            self.reset()
             return
 
-        self.check_group_discount(price)
+        self.check_group_discount()
         
         self.confirm_order(confirmation, route, price, tickets_requested)
+        self.reset()
 
     def get_date(self):
         self.date = input("Enter the date for which you'd like to buy ticket(s) in the form mm/dd/yyyy (e.g. 05/10/2019): ")
@@ -77,18 +82,18 @@ class Seller():
         num_tickets = input("How many tickets would you like to buy? ")
         self.tickets_requested = int(num_tickets)
 
-    def check_seat_availability(self, bus):
+    def check_seat_availability(self):
         available_tickets = False
-        if self.tickets_requested <= bus.get_number_of_available_tickets():
+        if self.tickets_requested <= self.bus.get_number_of_available_tickets():
             available_tickets = True
         else:
-            print(f"There are fewer than {tickets_requested} tickets available for route {bus.color}")
+            print(f"There are fewer than {self.tickets_requested} tickets available for route {bus.color}")
 
         return available_tickets
 
-    def check_ticket_limit(self, tickets_requested):
+    def check_ticket_limit(self):
         under_ticket_limit = False
-        if tickets_requested < 5:
+        if self.tickets_requested < 5:
             under_ticket_limit = True
         else:
             print("The maximum number of tickets you can purchase is 4.")
@@ -113,7 +118,14 @@ class Seller():
             confirmed = False
             print("Ok, NVM")
 
-        return confirmed   
+        return confirmed 
+
+    def reset():
+        self.price = None
+        self.route = None
+        self.tickets_requested = None
+        self.date = None
+        self.bus = None 
 
     # Refund method and helpers
     def refund(self): 
