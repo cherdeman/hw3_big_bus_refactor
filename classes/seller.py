@@ -168,19 +168,22 @@ class Seller():
             print("Cannot generate report.")
             return reported
 
-        if self.date == datetime.now().strftime("%m/%d/%Y"):
-            self.print_report_today()
-            reported = True
-        else:
+        reported = self.print_report_today()
+        if not reported:
             reported = self.print_report_other_day()
 
         return reported
         
 
     def print_report_today(self):
-        self.get_route()
-        if self.bus is not None:
-            print(f"{len(self.bus.tickets_sold)} tickets have been sold on route {self.route} for today.")
+        reported = False
+        if self.date == datetime.now().strftime("%m/%d/%Y"):
+            self.get_route()
+            if self.bus is not None:
+                print(f"{len(self.bus.tickets_sold)} tickets have been sold on route {self.route} for today.")
+                reported = True
+
+        return reported
 
     def print_report_other_day(self):
         reported = False
