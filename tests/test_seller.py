@@ -53,4 +53,4 @@ def test_check_seat_availability():
     ts.check_seat_availability(bus, 500) == False
 
 def test_check_group_discount():
-    ts.check_group_discount(4) == True
+    ts.check_group_discount(10, 4) == 9

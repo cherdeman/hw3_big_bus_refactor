@@ -47,8 +47,11 @@ class Seller():
 
         return under_ticket_limit
 
-    # def check_group_discount(self, tickets_requested):
-    #     pass
+    def check_group_discount(self, price, tickets_requested):
+        if tickets_requested == 4:
+            price *= self.group_discount_rate
+
+        return price
 
     
 
