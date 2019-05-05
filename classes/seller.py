@@ -97,12 +97,10 @@ class Seller():
 
         return under_ticket_limit
 
-    def check_group_discount(self, price, tickets_requested):
-        if tickets_requested == 4:
-            price *= self.group_discount_rate
-            print(f"You qualify for a group discount rate, your price per ticket is ${price}")
-
-        return price
+    def check_group_discount(self):
+        if self.tickets_requested == 4:
+            self.price *= self.group_discount_rate
+            print(f"You qualify for a group discount rate, your price per ticket is ${self.price}")
 
     def confirm_order(self, confirmation, route, price, tickets_requested):
         confirmed = True

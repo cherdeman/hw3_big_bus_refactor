@@ -74,7 +74,9 @@ def test_check_seat_availability():
     ts.check_seat_availability(bus) == False
 
 def test_check_group_discount():
-    ts.check_group_discount(10, 4) == 9
+    ts.tickets_requested = 4
+    ts.price = 10
+    ts.check_group_discount() == 9
 
 def test_confirm_ticket_sale():
     pass
