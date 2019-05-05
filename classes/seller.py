@@ -6,9 +6,10 @@ from classes.routes import Route
 
 class Seller():
     """Class representing the ticket seller"""
-    def __init__(self, date_route_dict, weekend_multiplier): 
+    def __init__(self, date_route_dict, weekend_multiplier, group_discount_rate): 
         self.routes_by_date = date_route_dict
         self.weekend_multiplier = weekend_multiplier
+        self.group_discount_rate = group_discount_rate
 
     def check_input_date(self, input_date):
         valid_date = False
