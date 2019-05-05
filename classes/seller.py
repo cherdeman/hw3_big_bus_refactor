@@ -16,7 +16,9 @@ class Seller():
         valid_date = False
         if input_date in self.routes_by_date.keys():
             valid_date = True
-        
+        else:
+            print(f"{date} is not an available date".format())
+
         return valid_date
 
     def get_price(self, date):
@@ -28,8 +30,11 @@ class Seller():
         return price
 
     def get_route(self, date, route):
+        bus = None
         if route in self.routes_by_date[date].keys():
             bus = self.routes_by_date[date][route]
+        else:
+            print(f"{route} is not a valid route".format())
 
         return bus
 
@@ -37,6 +42,8 @@ class Seller():
         available_tickets = False
         if tickets_requested <= bus.get_number_of_available_tickets():
             available_tickets = True
+        else:
+            print(f"There are fewer than {tickets_requested} tickets available for route {bus.color}".format())
 
         return available_tickets
 
@@ -44,65 +51,65 @@ class Seller():
         under_ticket_limit = False
         if tickets_requested < 5:
             under_ticket_limit = True
+        else:
+            print("The maximum number of tickets you can purchase is 4.")
 
         return under_ticket_limit
 
     def check_group_discount(self, price, tickets_requested):
         if tickets_requested == 4:
             price *= self.group_discount_rate
+            print(f"You qualify for a group discount rate, your price per ticket is ${price}")
 
         return price
 
+    def confirm_order(self, confirmation, price, tickets_requested):
+        confirmed = True
+        if confirmation == "y":
+            for ticket_number in range(tickets_requested):
+                ticket_id = str(uuid4())
+                ticket = (ticket_id, route, date, price)
+                bus.sell_ticket(ticket)
+                print(f"You purchased ticket {ticket[0]} for route {ticket[1]} on {ticket[2]} for ${ticket[3]:,.2f}".format())
+        else:
+            confirmed = False
+            print("Ok, NVM")
+
+        return confirmed
+
+
     
 
-    def sell(self):
+    def sell_ticket(self):
         """Sell tickets for a given date and route"""
         # Get date input
         date = input("Enter the date for which you'd like to buy ticket(s) in the form mm/dd/yyyy (e.g. 05/10/2019): ")
         # Check date validity
-        if not check_input_date(date):
-            print(f"{date} is not an available date".format())
+        if not self.check_input_date(date):
             return
 
         # vary price based on weekday/weekend
-        if datetime.strptime(date, "%B/%d/%Y").weekday() < 5:
-            p = self.price
-        else:
-            p = self.price * 1.2
+        price = self.get_price(date)
 
         # choose route
         route = input("Enter the route (blue, green, or red): ")
-        if route in self.avail[date].keys():
-            bus = self.avail[date][route]
-            # Check for ticket availability
-            n = input("How many tickets would you like to buy? ")
-            n = int(n)
-            if bus.tseats - len(bus.tix) > n:
-                # Check ticket num limit
-                if n > 4:
-                    print("The maximum number of tickets you can purchase is 4.")
-                    return
-                else:
-                    p = p * n
-                    # 10% discount for purchasing 4
-                    if n == 4:
-                        p = p*0.9
-                x = input(f"Would you like to purchase {n} ticket(s) for route {route} on {date} for ${p:,.2f}? (y/n) ")
-                # If confirmed, generate tickets
-                if x == "y":
-                    for i in range(n):
-                        t = (uuid4(), route, date, p/n)
-                        bus.sell(t)
-                        print(f"You purchased ticket {t[0]} for route {t[1]} on {t[2]} for ${t[3]:,.2f}".format())
-                else:
-                    print("Ok, NVM")
-                    return
-            else:
-                print(f"There are fewer than {n} tickets available for route {route} on {date}".format())
-                return
-        else:
-            print(f"{route} is not a valid route".format())
+        bus = self.get_route(date, route)
+        if bus is None:
             return
+
+        tickets_requested = input("How many tickets would you like to buy? ")
+        tickets_requested = int(tickets_requested)
+        if not self.check_seat_availability(bus, tickets_requested):
+            return
+
+        if not self.check_ticket_limit(tickets_requested):
+            return
+
+        price = self.check_group_discount(price, tickets_requested)
+
+        confirmation = input(f"Would you like to purchase {tickets_requested} ticket(s) for route {route} on {date} for ${price:,.2f}? (y/n) ")
+        
+        self.confirm_order(confirmation, price, tickets_requested)
             
 
 

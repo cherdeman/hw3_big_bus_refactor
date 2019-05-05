@@ -54,3 +54,6 @@ def test_check_seat_availability():
 
 def test_check_group_discount():
     ts.check_group_discount(10, 4) == 9
+
+def test_confirm_ticket_sale():
+    pass
