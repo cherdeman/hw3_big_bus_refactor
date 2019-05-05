@@ -27,6 +27,12 @@ class Seller():
         
         return price
 
+    def get_route(self, date, route):
+        if route in self.routes_by_date[date].keys():
+            bus = self.routes_by_date[date][route]
+
+        return bus
+
     def sell(self):
         """Sell tickets for a given date and route"""
         # Get date input
