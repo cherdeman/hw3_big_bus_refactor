@@ -100,14 +100,14 @@ class Seller():
             self.price *= self.group_discount_rate
             print(f"You qualify for a group discount rate, your price per ticket is ${self.price}")
 
-    def confirm_order(self, bus):
+    def confirm_order(self):
         confirmed = True
         confirmation = input(f"Would you like to purchase {self.tickets_requested} ticket(s) for route {self.route} on {self.date} for ${self.price:,.2f}? (y/n) ")
         if confirmation == "y":
             for ticket_number in range(self.tickets_requested):
                 ticket_id = str(uuid4())
                 ticket = (ticket_id, self.route, self.date, self.price)
-                bus.sell_ticket(ticket)
+                self.bus.sell_ticket(ticket)
                 print(f"You purchased ticket {ticket[0]} for route {ticket[1]} on {ticket[2]} for ${ticket[3]:,.2f}".format())
         else:
             confirmed = False

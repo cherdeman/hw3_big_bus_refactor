@@ -81,5 +81,5 @@ def test_check_group_discount():
 @patch('builtins.input', lambda _ : 'y')
 def test_confirm_ticket_sale():
     ts.date = '05/10/2019'
-    bus = ts.get_route()
+    ts.get_route()
     ts.confirm_order() == True
