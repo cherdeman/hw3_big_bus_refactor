@@ -166,14 +166,15 @@ class Seller():
         self.get_date()
         if not self.check_input_date():
             print("Cannot generate report.")
+            self.reset()
             return reported
 
         reported = self.print_report_today()
         if not reported:
             reported = self.print_report_other_day()
 
-        return reported
-        
+        self.reset()
+        return reported       
 
     def print_report_today(self):
         reported = False
