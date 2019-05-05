@@ -41,3 +41,6 @@ def test_get_price_weekday():
 
 def test_get_route():
 	ts.get_route('05/04/2019', 'blue').color == 'blue'
+
+def test_check_seat_availability():
+	ts.check_seat_availability(5) == False
