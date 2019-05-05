@@ -52,9 +52,13 @@ def test_get_price_weekday():
 @patch('builtins.input', lambda _ : 'blue')
 def test_get_route():
     ts.date = '05/10/2019'
-#     ts.input = lambda: ""
     bus = ts.get_route()
     bus.color == 'blue'
+
+@patch('builtins.input', lambda _ : '4')
+def test_tickets_requested():
+    ts.tickets_requested()
+    ts.tickets_requested == 4
 
 def test_check_ticket_limit_4():
     ts.check_ticket_limit(4) == True
