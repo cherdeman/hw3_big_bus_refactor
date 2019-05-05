@@ -24,7 +24,7 @@ class Control():
 			if o.isdigit():
 				o = int(o)
 			if o == 1:
-				self.seller.sell()
+				self.seller.sell_ticket()
 			elif o == 2:
 				self.seller.refund()
 			elif o == 3:

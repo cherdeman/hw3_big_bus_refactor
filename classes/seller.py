@@ -11,18 +11,57 @@ class Seller():
         self.weekend_multiplier = weekend_multiplier
         self.group_discount_rate = group_discount_rate
         self.base_ticket_price = base_price
+        self.price = None
+        self.route = None
+        self.tickets_requested = None
+        self.date = None
 
-    def check_input_date(self, input_date):
+    # Ticket selling method and helpers
+    def sell_ticket(self):
+        """Sell tickets for a given date and route"""
+        # Get date input
+        #self.date = input("Enter the date for which you'd like to buy ticket(s) in the form mm/dd/yyyy (e.g. 05/10/2019): ")
+        # Check date validity
+        if not self.check_input_date():
+            return
+
+        # vary price based on weekday/weekend
+        self.price = self.get_price()
+
+        # choose route
+        route = input("Enter the route (blue, green, or red): ")
+        bus = self.get_route(date, route)
+        if bus is None:
+            return
+
+        tickets_requested = input("How many tickets would you like to buy? ")
+        tickets_requested = int(tickets_requested)
+        if not self.check_seat_availability(bus, tickets_requested):
+            return
+
+        if not self.check_ticket_limit(tickets_requested):
+            return
+
+        price = self.check_group_discount(price, tickets_requested)
+
+        confirmation = input(f"Would you like to purchase {tickets_requested} ticket(s) for route {route} on {date} for ${price:,.2f}? (y/n) ")
+        
+        self.confirm_order(confirmation, route, price, tickets_requested)
+
+    def get_date(self):
+        self.date = input("Enter the date for which you'd like to buy ticket(s) in the form mm/dd/yyyy (e.g. 05/10/2019): ")
+
+    def check_input_date(self):
         valid_date = False
-        if input_date in self.routes_by_date.keys():
+        if self.date in self.routes_by_date.keys():
             valid_date = True
         else:
-            print(f"{date} is not an available date".format())
+            print(f"{self.date} is not an available date")
 
         return valid_date
 
-    def get_price(self, date):
-        if datetime.strptime(date, "%m/%d/%Y").weekday() < 5:
+    def get_price(self):
+        if datetime.strptime(self.date, "%m/%d/%Y").weekday() < 5:
             price = self.base_ticket_price
         else: 
             price = self.base_ticket_price * self.weekend_multiplier        
@@ -63,7 +102,7 @@ class Seller():
 
         return price
 
-    def confirm_order(self, confirmation, price, tickets_requested):
+    def confirm_order(self, confirmation, route, price, tickets_requested):
         confirmed = True
         if confirmation == "y":
             for ticket_number in range(tickets_requested):
@@ -75,44 +114,9 @@ class Seller():
             confirmed = False
             print("Ok, NVM")
 
-        return confirmed
+        return confirmed   
 
-
-    
-
-    def sell_ticket(self):
-        """Sell tickets for a given date and route"""
-        # Get date input
-        date = input("Enter the date for which you'd like to buy ticket(s) in the form mm/dd/yyyy (e.g. 05/10/2019): ")
-        # Check date validity
-        if not self.check_input_date(date):
-            return
-
-        # vary price based on weekday/weekend
-        price = self.get_price(date)
-
-        # choose route
-        route = input("Enter the route (blue, green, or red): ")
-        bus = self.get_route(date, route)
-        if bus is None:
-            return
-
-        tickets_requested = input("How many tickets would you like to buy? ")
-        tickets_requested = int(tickets_requested)
-        if not self.check_seat_availability(bus, tickets_requested):
-            return
-
-        if not self.check_ticket_limit(tickets_requested):
-            return
-
-        price = self.check_group_discount(price, tickets_requested)
-
-        confirmation = input(f"Would you like to purchase {tickets_requested} ticket(s) for route {route} on {date} for ${price:,.2f}? (y/n) ")
-        
-        self.confirm_order(confirmation, price, tickets_requested)
-            
-
-
+    # Refund method and helpers
     def refund(self): 
         """Refund a ticket"""
         date = input("Enter the date for which you'd like to be refunded in the form Month/day/Year (e.g. April/23/2019): ")

@@ -30,14 +30,21 @@ def test_base_ticket_price():
     ts.base_ticket_price == 10
 
 # test methods
+def test_get_date():
+    ts.input = lambda: '05/10/2019'
+    ts.date == '05/10/2019'
+
 def test_check_input_date():
-    ts.check_input_date('05/04/2019') == True
+    ts.date = '05/04/2019'
+    ts.check_input_date() == True
 
 def test_get_price_weekend():
-    ts.get_price('05/04/2019') == 12
+    ts.date = '05/04/2019'
+    ts.get_price() == 12
 
 def test_get_price_weekday():
-    ts.get_price('05/09/2019') == 10
+    ts.date = '05/09/2019'
+    ts.get_price() == 10
 
 def test_get_route():
     ts.get_route('05/04/2019', 'blue').color == 'blue'
