@@ -21,4 +21,7 @@ class Route():
         # remove ticket from ticket list
         del(self.tickets_sold[ticket_id])
 
+    def get_number_of_available_tickets(self):
+        return self.total_seats - len(self.tickets_sold)
+
 
