@@ -32,3 +32,8 @@ def test_refund_ticket():
 
 def test_get_total_route_seats():
     tr.get_total_route_seats() == 5*89
+
+def test_get_number_of_available_tickets():
+    ticket = ('12345', 'blue', 'May 5, 2018', 2)
+    tr.sell_ticket(ticket)
+    tr.get_number_of_available_tickets == 444
