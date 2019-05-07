@@ -34,3 +34,10 @@ class Control():
             else: 
                 print("That is not valid input.")
 
+    def get_option(self):
+        option = input("Please enter the number of the option you'd like to select: ")
+        try:
+            option = int(option)
+        except Error as e:
+            print(e)
+
