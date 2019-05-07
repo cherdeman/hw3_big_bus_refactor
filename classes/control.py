@@ -15,8 +15,8 @@ class Control():
         while self.active:
             print()
             print("What would you like to do?")
-            for i in range(1, len(opts) + 1):
-                print(f"{i}) {opts[i]}".format())
+            for i in range(1, len(self.options) + 1):
+                print(f"{i}) {self.options[i]}".format())
 
             o = input("Please enter the number of the option you'd like to select: ")
             print()
@@ -30,7 +30,7 @@ class Control():
                 self.seller.report()
             elif o == 4:
                 print("Bye")
-                active = False
+                self.active = False
             else: 
                 print("That is not valid input.")
 
