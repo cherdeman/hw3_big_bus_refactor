@@ -18,10 +18,11 @@ class Control():
             for i in range(1, len(self.options) + 1):
                 print(f"{i}) {self.options[i]}".format())
 
-            option = input("Please enter the number of the option you'd like to select: ")
-            print()
-            if option.isdigit():
-                option = int(option)
+            option = self.get_option()
+            # option = input("Please enter the number of the option you'd like to select: ")
+            # print()
+            # if option.isdigit():
+            #     option = int(option)
             if option == 1:
                 self.seller.sell_ticket()
             elif option == 2:
@@ -41,4 +42,9 @@ class Control():
         except ValueError:
             print("The input is invalid. Please enter a value.")
             option = None
+
+        # if option <1 or option > 4:
+        #     option = None
+
+        return option
 
