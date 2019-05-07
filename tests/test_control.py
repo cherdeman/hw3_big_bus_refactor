@@ -34,7 +34,7 @@ def test_options():
                    4: "Exit"}
 
 def test_active():
-    tc.active == True
+    tc.active
 
 # test methods
 @patch('builtins.input', lambda _ : '1')
@@ -52,4 +52,4 @@ def test_get_option_incorrect():
 @patch('builtins.input', lambda _ : '4')
 def test_control_exit():
     tc.control()
-    tc.active == False
+    not tc.active

@@ -46,7 +46,7 @@ def test_get_date_bad_formation():
 
 def test_check_input_date():
     ts.date = '05/04/2019'
-    ts.check_input_date() == True
+    ts.check_input_date()
 
 def test_get_price_weekend():
     ts.date = '05/04/2019'
@@ -69,17 +69,17 @@ def test_ticket_request():
 
 def test_check_ticket_limit_4():
     ts.tickets_requested = 4
-    ts.check_ticket_limit() == True
+    ts.check_ticket_limit()
 
 def test_check_ticket_limit_5():
     ts.tickets_requested = 5
-    ts.check_ticket_limit() == False
+    not ts.check_ticket_limit()
 
 def test_check_seat_availability():
     ts.date = '05/04/2019'
     ts.route = 'blue'
     ts.bus = ts.routes_by_date[ts.date][ts.route]
-    ts.check_seat_availability() == False
+    not ts.check_seat_availability()
 
 def test_check_group_discount():
     ts.tickets_requested = 4
@@ -90,37 +90,37 @@ def test_check_group_discount():
 def test_confirm_ticket_sale():
     ts.date = '05/10/2019'
     ts.get_route()
-    ts.confirm_order() == True
+    ts.confirm_order()
 
 @patch('builtins.input', lambda _ : 'n')
 def test_confirm_ticket_sale_reject():
     ts.date = '05/10/2019'
     ts.get_route()
-    ts.confirm_order() == False
+    not ts.confirm_order()
 
 @patch('builtins.input', lambda _ : 'blue')
 def test_print_report_today_correct():
     ts.date == '05/04/2019'
-    ts.print_report_today() == True
+    ts.print_report_today()
 
 def test_print_report_today_incorrect():
     ts.date == '05/05/2019'
-    ts.print_report_today() == False
+    not ts.print_report_today()
 
 def test_report_future_date_none():
-    ts.date == None
-    ts.print_report_other_day() == False
+    ts.date is None
+    not ts.print_report_other_day()
 
 def test_report_future_date_correct():
     ts.date == '05/06/2019'
-    ts.print_report_other_day() == True
+    ts.print_report_other_day()
 
 @patch('builtins.input', lambda _ : '05/05/2019')
 def test_report_future_date():
-    ts.report() == True
+    ts.report()
 
 @patch('builtins.input', lambda _ : '05/05/2019')
 def test_report_future_date():
-    ts.report() == True
+    ts.report()
 
 
