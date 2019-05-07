@@ -123,4 +123,18 @@ def test_report_future_date():
 def test_report_future_date():
     ts.report()
 
+def test_reset():
+    ts.price = 1
+    ts.route = 'blue'
+    ts.tickets_requested = 5
+    ts.date = '05/05/05'
+    ts.bus = Route('blue', 5)
+    ts.reset()
+
+    ts.price is None
+    ts.route is None
+    ts.tickets_requested is None
+    ts.date is None
+    ts.bus is None
+
 

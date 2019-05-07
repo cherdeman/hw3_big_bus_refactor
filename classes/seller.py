@@ -81,8 +81,6 @@ class Seller():
         else:
             print(f"{self.route} is not a valid route")
 
-        #return bus
-
     def ticket_request(self):
         num_tickets = input("How many tickets would you like to buy? ")
         self.tickets_requested = int(num_tickets)
@@ -133,7 +131,7 @@ class Seller():
         self.bus = None 
 
     # Refund method and helpers
-    def refund(self): 
+    def refund_ticket(self): 
         """Refund a ticket"""
         self.get_date()
         if self.check_today():

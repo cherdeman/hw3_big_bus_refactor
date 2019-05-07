@@ -5,7 +5,7 @@ class Control():
     def __init__(self, seller):
         self.seller = seller
         self.options = {1: ("Sell tickets", lambda: self.seller.sell_ticket()),
-                        2: ("Provide a refund", lambda: self.seller.refund()),
+                        2: ("Provide a refund", lambda: self.seller.refund_ticket()),
                         3: ("Generate a report", lambda: self.seller.report()),
                         4: ("Exit", lambda: self.set_active())}
         self.active = True
