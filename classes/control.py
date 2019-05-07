@@ -37,8 +37,6 @@ class Control():
         return option
 
     def set_active(self):
-        if self.active is True:
+        if self.active:
             self.active = False
-        else:
-            self.active = True
 
