@@ -38,6 +38,7 @@ class Control():
         option = input("Please enter the number of the option you'd like to select: ")
         try:
             option = int(option)
-        except e:
-            print(e)
+        except ValueError:
+            print("The input is invalid. Please enter a value.")
+            option = None
 
