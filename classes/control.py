@@ -16,7 +16,8 @@ class Control():
             print()
             print("What would you like to do?")
             for i in range(1, len(self.options) + 1):
-                print(f"{i}) {self.options[i][0]}")
+                option_name = self.options[i][0]
+                print(f"{i}) {option_name}")
 
             option = self.get_option()
 

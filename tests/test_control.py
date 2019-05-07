@@ -9,7 +9,6 @@ from classes.seller import Seller
 from classes.routes import Route
 
 
-
 #initialize test control
 now = datetime(2019, 5, 4, 18, 39, 53, 898306)
 date_dict = {}
