@@ -28,3 +28,6 @@ def test_options():
                    2: "Provide a refund",
                    3: "Generate a report",
                    4: "Exit"}
+
+def test_active():
+    tc.active == True
