@@ -18,17 +18,17 @@ class Control():
             for i in range(1, len(self.options) + 1):
                 print(f"{i}) {self.options[i]}".format())
 
-            o = input("Please enter the number of the option you'd like to select: ")
+            option = input("Please enter the number of the option you'd like to select: ")
             print()
-            if o.isdigit():
-                o = int(o)
-            if o == 1:
+            if option.isdigit():
+                option = int(option)
+            if option == 1:
                 self.seller.sell_ticket()
-            elif o == 2:
+            elif option == 2:
                 self.seller.refund()
-            elif o == 3:
+            elif option == 3:
                 self.seller.report()
-            elif o == 4:
+            elif option == 4:
                 print("Bye")
                 self.active = False
             else: 

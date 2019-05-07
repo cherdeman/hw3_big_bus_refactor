@@ -37,6 +37,18 @@ def test_active():
     tc.active == True
 
 # test methods
+@patch('builtins.input', lambda _ : '1')
+def test_get_option_correct():
+    tc.get_option() == 1
+
+# @patch('builtins.input', lambda _ : '1')
+# def test_get_option_correct():
+#     tc.get_option()
+
+# @patch('builtins.input', lambda _ : 'asdf')
+# def test_get_option_incorrect():
+#     tc.get_option()
+
 @patch('builtins.input', lambda _ : '4')
 def test_control_exit():
     tc.control()
