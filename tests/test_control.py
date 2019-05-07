@@ -21,4 +21,10 @@ tc = Control(ts)
 
 # test attributes
 def test_seller():
-	tc.seller == ts
+    tc.seller == ts
+
+def test_options():
+    tc.options == {1: "Sell tickets",
+                   2: "Provide a refund",
+                   3: "Generate a report",
+                   4: "Exit"}
