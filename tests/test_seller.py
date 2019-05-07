@@ -8,7 +8,6 @@ from classes.seller import Seller
 
 # Reference for overriding input function: https://stackoverflow.com/questions/18161330/using-unittest-mock-to-patch-input-in-python-3
 
-
 #initialize test seller
 now = datetime(2019, 5, 4, 18, 39, 53, 898306)
 date_dict = {}

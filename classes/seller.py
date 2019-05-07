@@ -149,13 +149,13 @@ class Seller():
         self.get_route()
         
         _id = input("Enter the ticket id: ")
-        if _id not in self.bus:
+        if _id not in self.bus.tickets_sold.keys():
             print(f"There is no ticket sold with id {_id} on route {self.route} and {self.date}")
             return
 
         x = input(f"Are you sure you want a refund for ticket {_id} on route {self.route} on date {self.date}? (y/n) ")
         if x == "y":
-            self.bus.refund(_id)
+            self.bus.refund_ticket(_id)
             print("Your ticket has been refunded")
 
     def check_today(self):
