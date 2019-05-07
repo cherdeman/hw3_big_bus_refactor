@@ -8,16 +8,11 @@ class Control():
                         2: "Provide a refund",
                         3: "Generate a report",
                         4: "Exit"}
+        self.active = True
 
     def control(self):
         """Method to provide control functionality"""
-        active = True
-        opts = {1: "Sell tickets",
-                2: "Provide a refund",
-                3: "Generate a report",
-                4: "Exit"}
-
-        while active:
+        while self.active:
             print()
             print("What would you like to do?")
             for i in range(1, len(opts) + 1):
