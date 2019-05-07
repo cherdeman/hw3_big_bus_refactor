@@ -45,9 +45,9 @@ def test_get_option_correct():
 # def test_get_option_correct():
 #     tc.get_option()
 
-# @patch('builtins.input', lambda _ : 'asdf')
-# def test_get_option_incorrect():
-#     tc.get_option()
+@patch('builtins.input', lambda _ : 'asdf')
+def test_get_option_incorrect():
+    tc.get_option()
 
 @patch('builtins.input', lambda _ : '4')
 def test_control_exit():
