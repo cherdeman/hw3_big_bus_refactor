@@ -23,15 +23,6 @@ class Control():
             if option in self.options.keys():
                 action_tuple = self.options[option]
                 action_tuple[1]()
-            # if option == 1:
-            #     self.seller.sell_ticket()
-            # elif option == 2:
-            #     self.seller.refund()
-            # elif option == 3:
-            #     self.seller.report()
-            # elif option == 4:
-            #     print("Bye")
-            #     self.active = False
             else: 
                 print("That is not valid input.")
 

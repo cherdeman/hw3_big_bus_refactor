@@ -53,3 +53,8 @@ def test_get_option_incorrect2():
 def test_control_exit():
     tc.control()
     not tc.active
+
+def test_set_active():
+    tc.active = True
+    tc.set_active()
+    not tc.active
