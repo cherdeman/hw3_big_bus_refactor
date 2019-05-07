@@ -1,9 +1,13 @@
 import pytest
+import unittest
+from unittest.mock import patch
+from datetime import datetime, timedelta
+
 from classes.control import Control 
 from classes.seller import Seller 
 from classes.routes import Route
 
-from datetime import datetime, timedelta
+
 
 #initialize test control
 now = datetime(2019, 5, 4, 18, 39, 53, 898306)
@@ -31,3 +35,9 @@ def test_options():
 
 def test_active():
     tc.active == True
+
+# test methods
+@patch('builtins.input', lambda _ : '4')
+def test_control_exit():
+    tc.control()
+    tc.active == False
