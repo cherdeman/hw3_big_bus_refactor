@@ -1,8 +1,9 @@
 import pytest
 from classes.control import Control 
-
 from classes.seller import Seller 
 from classes.routes import Route
+
+from datetime import datetime, timedelta
 
 #initialize test control
 now = datetime(2019, 5, 4, 18, 39, 53, 898306)
