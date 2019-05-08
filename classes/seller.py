@@ -180,22 +180,22 @@ class Seller():
         if self.check_today():
             self.get_route()
             if self.bus is not None:
-                print(f"{len(self.bus.tickets_sold)} tickets have been sold on route {self.route} for today.")
                 reported = True
-
+                print(f"{len(self.bus.tickets_sold)} tickets have been sold on route {self.route} for today.")
+      
         return reported
 
     def print_report_other_day(self):
         reported = False
         print(f"Report for date {self.date}")
-        for route in self.routes_by_date[self.date].keys():
-            try:
+        try:
+            for route in self.routes_by_date[self.date].keys():
                 num_tickets_sold = len(self.routes_by_date[self.date][route].tickets_sold)
                 print(f"{num_tickets_sold} tickets of {self.routes_by_date[self.date][route].total_seats} have been sold on the {route} route")
                 reported = True
-            except KeyError:
-                print("Invalid request.")
-                reported = False
+        except KeyError:
+            print("Invalid request.")
+            reported = False
 
         return reported
 
