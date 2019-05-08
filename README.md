@@ -1,6 +1,6 @@
 # Big Bus Application
 
-This repository is code for 3nd homework assignment for the course Applied Software Engineering (Spring 2019). This builds on homework assignment 2 (details [here](https://github.com/mpcs51220/hw2/blob/master/big_bus.md) and [here](https://github.com/mpcs51220/hw2/blob/master/requirements.md) by refactoring the existing code and adding tests through a TDD process. See details [here](https://github.com/mpcs51220/hw3).
+This repository is code for 3nd homework assignment for the course Applied Software Engineering (Spring 2019). This builds on homework assignment 2 (details [here](https://github.com/mpcs51220/hw2/blob/master/big_bus.md) and [here](https://github.com/mpcs51220/hw2/blob/master/requirements.md)) by refactoring the existing code and adding tests through a TDD process. See details [here](https://github.com/mpcs51220/hw3).
 
 ## Repo Organization
 The repo is now organized into `classes` and `tests` subdirectories, while the `run.py` script is located in the repository root.
